@@ -19,7 +19,7 @@ class CreateProduitsTable extends Migration
             $table->text("quantite");
             $table->string("categorie");
             $table->string("cover");
-            $table->string("adm_Nom");
+            $table->string("adm_nom");
 
             $table->timestamps();
         });
