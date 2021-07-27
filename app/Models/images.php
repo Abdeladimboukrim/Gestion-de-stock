@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Produit;
 
-class images extends Model
+class Images extends Model
 {
     use HasFactory;
     protected $fillable=[
         'image',
         'porduit_id',
     ];
-    public function posts(){
+    public function produits(){
         return $this->belongsTo(produit::class);
     }
 }
