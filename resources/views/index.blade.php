@@ -16,16 +16,17 @@
     <div class="container" style="margin-top: 50px;">
 
 <h3 class="text-center text-danger"><b>gestion de stock</b> </h3>
-<a href="/create" class="btn btn-outline-success">Add New Post</a>
+<a href="/create" class="btn btn-outline-success">Add New Produit</a>
 
 <table class="table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Description</th>
         <th>Cover</th>
+        <th>id</th>
+        <th>Nom</th>
+        <th>quantite</th>
+        <th>categorie</th>
+        <th>Adm_nom</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -34,7 +35,17 @@
 </table>
 </div>
 
-
+<tbody>
+    <tr>
+        <th scope="row"></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+   
+</tbody>
 
     </body>
 </html>
