@@ -14,8 +14,16 @@ use App\Http\Controllers\ProduitController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/',[ProduitController::class,'index']);
+
+
+Route::get('/create', function () {
+    return view('create');   
+});
+
+Route::post('/post',[ProduitController::class,'store']);
+Route::delete('/delete/{id}',[ProduitController::class,'destroy']);
+Route::get('/edit/{id}',[ProduitController::class,'edit']);
+

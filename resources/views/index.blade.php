@@ -21,31 +21,42 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Cover</th>
+        
         <th>id</th>
         <th>Nom</th>
         <th>quantite</th>
         <th>categorie</th>
         <th>Adm_nom</th>
+        <th>Cover</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
     </thead>
-    
+
+    <tbody>
+
+    @foreach($Produits as $produit)
+
+
+    <tr>
+        <th scope="row">{{$produit->id}}</th>
+        <td>{{$produit->nom}}</td>
+        <td>{{$produit->quantite}}</td>
+        <td>{{$produit->categorie}}</td>
+        <td>{{$produit->adm_Nom}}</td>
+        <td><img src="cover/{{$produit->cover}}" class="img-responsive" style="max-width: 100px; max-height: 100px" alt=""></td>
+        <td><a href="/edit/{{$produit->id}}" class="btn btn-outline-primary">Update</a></td>
+        <td>
+            <form action="/delete/{{$produit->id}}" method="post">
+            <button class="btn btn-outline-danger" onclick="return confirm('Are you sure?');" type="submit">Delete</button>
+            @csrf
+            @method('delete')
+            </form>
+        </td>
+    </tr>
+    @endforeach()
+</tbody>
 </table>
 </div>
-
-<tbody>
-    <tr>
-        <th scope="row"></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-   
-</tbody>
-
     </body>
 </html>
