@@ -23,7 +23,9 @@ Route::get('/create', function () {
     return view('create');   
 });
 
-Route::post('/post',[ProduitController::class,'store']);
+Route::post('/produit',[ProduitController::class,'store']);
 Route::delete('/delete/{id}',[ProduitController::class,'destroy']);
 Route::get('/edit/{id}',[ProduitController::class,'edit']);
-
+Route::delete('/deleteimage/{id}',[ProduitController::class,'deleteimage']);
+Route::delete('/deletecover/{id}',[ProduitController::class,'deletecover']);
+Route::put('/update/{id}',[ProduitController::class,'update']);

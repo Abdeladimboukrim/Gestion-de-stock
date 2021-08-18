@@ -22,7 +22,7 @@
                 <div class="col-lg-6">
                     <h3 class="text-center text-danger"><b>Add New Produit</b> </h3>
 				    <div class="form-group">
-                        <form action="/post" method="post" enctype="multipart/form-data">
+                        <form action="/produit" method="post" enctype="multipart/form-data">
                         @csrf
 
         				<input type="text" name="nom" class="form-control m-2" placeholder="title">
@@ -31,8 +31,6 @@
                         <Textarea name="categorie" cols="20" rows="4" class="form-control m-2" placeholder="categorie"></Textarea>
                         <label class="m-2">Cover Image</label>
                         <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="cover">
-                        <label class="m-2">Images</label>
-                        <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="images[]" multiple>
                         <button type="submit" class="btn btn-danger mt-3 ">Submit</button>
                         </form>
                     </div>

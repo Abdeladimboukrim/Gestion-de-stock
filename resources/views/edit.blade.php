@@ -20,30 +20,31 @@
 
                 <div class="col-lg-3">
                     <p>Cover:</p>
-                <img src="/cover/{{$Produits->cover}}" class="img-responsive" style="max-width: 100px; max-height: 100px;" alt="" srcset="">
+                    <form action="/deletecover/{{ $Produits->id }}" method="post">
+                    <button class="btn text-danger">X</button>
+                    @csrf
+                    @method('delete')
+                    </form>
+                <img src="/cover/{{$Produits->cover}}" class="img-responsive" style="max-width: 200px; max-height: 200px;" alt="" srcset="">
                 <BR>
 
-                <P>IMAGES:</P>
-                @foreach ($Produits->images as $img)
-                <img src="/images/{{$img->image}}" class="img-responsive" style="max-width: 100px; max-height: 100px;" alt="" srcset="">
-
-                @endforeach
+                 
+                
+                
                 </div>
                 <div class="col-lg-6">
-                    <h3 class="text-center text-danger"><b>Add New Produit</b> </h3>
+                    <h3 class="text-center text-danger"><b>Edit Produit</b> </h3>
 				    <div class="form-group">
-                        <form action="/post" method="post" enctype="multipart/form-data">
+                        <form action="/update/{{ $Produits->id }}" method="post" enctype="multipart/form-data">
                         @csrf
-
-        				<input type="text" name="nom" class="form-control m-2" placeholder="title">
-        				<input type="text" name="adm_nom" class="form-control m-2" placeholder="Admin">
-        				<input type="text" name="quantite" class="form-control m-2" placeholder="quantite">
-                        <Textarea name="categorie" cols="20" rows="4" class="form-control m-2" placeholder="categorie"></Textarea>
+                        @method ("put")
+        				<input type="text" name="nom" class="form-control m-2" placeholder="title" value="{{ $Produits->nom}}">
+        				<input type="text" name="adm_nom" class="form-control m-2" placeholder="Admin" value="{{ $Produits->adm_Nom }}">
+        				<input type="text" name="quantite" class="form-control m-2" placeholder="quantite" value="{{ $Produits->quantite }}">
+                        <Textarea name="categorie" cols="20" rows="4" class="form-control m-2" placeholder="categorie" >{{ $Produits->categorie }}</Textarea>
                         <label class="m-2">Cover Image</label>
                         <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="cover">
-                        <label class="m-2">Images</label>
-                        <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="images[]" multiple>
-                        <button type="submit" class="btn btn-danger mt-3 ">Submit</button>
+                       <button type="submit" class="btn btn-danger mt-3 ">Submit</button>
                         </form>
                     </div>
                 </div>

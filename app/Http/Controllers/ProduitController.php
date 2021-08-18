@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produit;
 use App\Models\Images;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -45,12 +45,12 @@ class ProduitController extends Controller
             $imageName=time().'_'.$file->getClientOriginalName();
             $file->move(\public_path("cover/"),$imageName);
 
-            $produit=new produit([
+            $produit=new Produit([
                 "nom"=>$request->nom,
                 "quantite"=>$request->quantite,
                 "categorie"=>$request->categorie,                            
                 "cover"=>$imageName,
-                "adm_Nom"=>$request->adm_nom ,  
+                "adm_Nom"=>$request->adm_nom,
             ]);
             $produit->save();
         }
@@ -74,11 +74,7 @@ class ProduitController extends Controller
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
-    // public function show(Produit $produit)
-    // {
-    //     $produit = Produit::all();
-    //     return view('show', ['produit' => $produit]);
-    // }  
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -99,9 +95,40 @@ class ProduitController extends Controller
      * @param  \App\Models\Produit  $produit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produit $produit)
+    public function update(Request $request,$id)
     {
-        //
+    $Produit=Produit::findOrFail($id);
+    if($request->hasFile("cover")){
+        if (File::exists("cover/".$Produit->cover)) {
+            File::delete("cover/".$Produit->cover);
+        }
+        $file=$request->file("cover");
+        $Produit->cover=time()."_".$file->getClientOriginalName();
+        $file->move(\public_path("/cover"),$Produit->cover);
+        $request['cover']=$Produit->cover;
+    }
+
+    $Produit->update([
+            "nom" =>$request->nom,
+            "adm_nom"=>$request->adm_nom,
+            "quantite"=>$request->quantite,
+            "cover"=>$Produit->cover,
+        ]);
+
+        if($request->hasFile("images")){
+            $files=$request->file("images");
+            foreach($files as $file){
+                $imageName=time().'_'.$file->getClientOriginalName();
+                $request["produit_id"]=$id;
+                $request["image"]=$imageName;
+                $file->move(\public_path("images"),$imageName);
+                Images::create($request->all());
+
+            }
+        }
+
+        return redirect("/");
+
     }
 
     /**
@@ -126,4 +153,22 @@ class ProduitController extends Controller
         $produits->delete();
         return back();
     }
+
+    public function deleteimage($id){
+        $images=Images::findOrFail($id);
+        if (File::exists("images/".$images->image)) {
+            File::delete("images/".$images->image);
+        }
+        Images::find($id)->delete();
+        return back();
+        }
+        public function deletecover($id){
+            $cover=Produit::findOrFail($id)->cover;
+            if (File::exists("cover/".$cover)) {
+                File::delete("cover/".$cover);
+            }
+            return back();
+        }
+
+
 }
